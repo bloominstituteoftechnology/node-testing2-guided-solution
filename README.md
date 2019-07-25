@@ -238,3 +238,36 @@ beforeEach(async () => {
 Do another review of how everything works together.
 
 **Emphasize that all of these inserts target the test database (test.db3)**, running the server will show the data from the `hobbits.db3` database.
+
+## Deploy to Heroku with PostgreSQL
+
+- new app
+- connect it
+- /hobbits hast seeded data
+- `Resources` > postgres > provision
+- commit 'add tests' > should deploy
+- refresh app, should still work
+
+Time to add postgres configuration for the database
+
+- change knexfile
+- add 'pg' package
+- show settings > reveal config files DATABASE_URL
+- commit and push 'adds production db config'
+- deployed, **still reading the development database**
+- open dbConfig, we use DB_ENV
+- **add this environment variable to heroku**
+- fails because **hobbits table does not exist in heroku**.
+
+### Run Migrations On Heroku
+
+```sh
+npx heroku run knex migrate:latest -a lshobbits
+npx heroku run knex seed:run -a lshobbits
+```
+
+change DB_ENV to be development and switch it back to show the effect
+
+show the returning inside hobbitsModel.js
+
+`const [id] = await db('hobbits').insert(hobbit, 'id'); // show the 'id'-*`
