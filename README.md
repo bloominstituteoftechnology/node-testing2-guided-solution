@@ -6,16 +6,16 @@ Guided project for **Web Testing IV** Module.
 
 - [ ] fork and clone this repository.
 - [ ] **CD into the folder** where you cloned **your fork**.
-- [ ] type `yarn` or `npm i` to download dependencies.
-- [ ] type `yarn server` or `npm run server` to start the API.
+- [ ] type `npm i` to download dependencies.
+- [ ] type `npm run server` to start the API.
 
 Please follow along as the instructor add automated tests to the API.
 
 ## How to Contribute
 
-- clone the [starter code](https://github.com/LambdaSchool/webtesting-iv-guided).
+- clone the [starter code](https://github.com/LambdaSchool/node-server-testing-guided).
 - create a solution branch: `git checkout -b solution`.
-- add this repository as a remote: `git remote add solution https://github.com/LambdaSchool/webtesting-iv-guided-solution`
+- add this repository as a remote: `git remote add solution https://github.com/LambdaSchool/node-server-testing-guided-solution`
 - pull from this repository's `master` branch into the `solution` branch in your local folder `git pull solution master:solution --force`.
 
 A this point you should have a `master` branch pointing to the student's repository and a `solution` branch with the latest changes added to the solution repository.
@@ -26,11 +26,11 @@ When making changes to the `master` branch, commit the changes and use `git push
 
 ## Introduce the Module Challenge
 
-Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/webtesting-iv-challenge), and provide hints about what to test.
+Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/node-server-testing-challenge), and provide hints about what to test.
 
 ## Introduce the Guided Project
 
-Introduce the [guided project](https://github.com/LambdaSchool/webtesting-iv-guided).
+Introduce the [guided project](https://github.com/LambdaSchool/node-server-testing-guided).
 
 - fork and clone it.
 - install dependencies.
