@@ -1,7 +1,7 @@
 {
-  "name": "webtesting-iv-guided",
+  "name": "node-testing-guided",
   "version": "1.0.0",
-  "description": "Starter Code for Web Testing IV Module",
+  "description": "Starter Code for Node Testing Module",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
@@ -13,7 +13,7 @@
   "dependencies": {
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "knex": "^0.18.0",
+    "knex": "^0.19.1",
     "sqlite3": "^4.0.9"
   },
   "devDependencies": {
