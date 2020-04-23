@@ -1,4 +1,4 @@
-# Web Testing IV Guided Project
+# Node Server Testing Guided Project
 
 Guided project for **Web Testing IV** Module.
 
