@@ -33,7 +33,7 @@ describe('hobbits model', () => {
     });
   });
 
-  describe('remove', () => {
+  describe('remove()', () => {
     it('deletes the hobbit', async () => {
       await Hobbit.insert({ name: 'gaffer' });
       await Hobbit.insert({ name: 'sam' });
@@ -43,7 +43,7 @@ describe('hobbits model', () => {
     });
   });
 
-  describe('getAll', () => {
+  describe('getAll()', () => {
     it('gets empty list when no hobbits in db', async () => {
       const hobbits = await Hobbit.getAll();
       expect(hobbits).toHaveLength(0);
@@ -59,7 +59,7 @@ describe('hobbits model', () => {
     });
   });
 
-  describe('findById', () => {
+  describe('findById()', () => {
     it('can find a hobbit by id', async () => {
       await db('hobbits').insert({ name: 'gaffer' });
       await db('hobbits').insert({ name: 'sam' });
