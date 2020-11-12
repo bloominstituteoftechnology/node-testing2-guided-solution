@@ -81,3 +81,6 @@ typings/
 
 # Mac cruft
 -DS_Store
+
+# VSCode debugging
+.vscode/launch.json
