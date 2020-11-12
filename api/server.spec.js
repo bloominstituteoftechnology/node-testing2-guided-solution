@@ -39,5 +39,13 @@ describe('sever.js', () => {
 
       expect(res.body).toEqual({ api: 'up' });
     });
+
+    it('[GET] / another way of doing it', () => {
+      return request(server)
+        .get('/')
+        .expect('Content-Type', /json/)
+        .expect('Content-Length', '12')
+        .expect(200);
+    })
   });
 });
