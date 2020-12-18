@@ -11,26 +11,21 @@ Guided project for **Node Server Testing** Module.
 - [ ] type `npm run seed` to seed the db.
 - [ ] type `npm run server` to start the API.
 
-## Introduce the Module Challenge
-
-Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/node-testing2-guided), and provide hints about what to test.
-
 ## Introduce the Guided Project
 
-Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-guided).
+- Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-guided).
 
 ## Add .env File to Root Folder
 
 - open `index.js`, note that we're ready to support environment variables.
-- add empty `.env`, we'll use it later.
+- add empty `.env`, we'll use it later for configuring postgres (time allowing).
 
 **wait for students to catch up**
 
 ## Change Jest Environment to Node
 
-- Explain that Jest runs in browser mode using `jsdom`, for server testing we need to change it to run in **node mode**.
+- Explain that Jest by default runs in browser mode using `jsdom`, for server testing we need to change it to run in **node mode**.
 - We can generate a Jest config file running `npx jest --init`. An assistant launches and we can set the environment to `node` from there.
-
 - Alternatively, we can set configuration inside the `package.json` by adding a "jest" key:
 
   ```json
@@ -39,24 +34,34 @@ Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-gui
   }
   ```
 
+## Create/Edit the "test" script with flags
+
+- Edit the package.json to add/edit the "test" script:
+
+  ```json
+  "test": "jest --watchAll --verbose --runInBand"
+  ```
+
+- The `runInBand` flag is used to run all tests serially, as there is database access involved.
+- **This configuration is not good enough** because it will use the same database as development.
+
 **restart the server/test if they were running** for the changes to take effect.
 
 **wait for students to catch up**
 
 ## Introduce cross-env
 
-Explain what `cross-env` does in the `test` script inside `package.json`.
+- Explain what `cross-env` does in the `test` script inside `package.json`.
+- Open `./data/dbConfig.js` and show how we're using `DB_ENV` to dynamically load a different `knex` configuration for testing.
+- Open `knexfile.js` and show we have separate configurations for testing and development.
+- We will have separate databases for development and for testing inside the `data` folder.
+- Edit the package.json to set the correct environment for the tests using `cross-env`:
 
-- open `./data/dbConfig.js` and show how we're using `DB_ENV` to dynamically load a different `knex` configuration for testing.
-- open `knexfile.js` and show we have separate configurations for testing and development.
-- open the `data` folder and show that we have separate databases to go with the configurations.
+  ```json
+  "test": "cross-env DB_ENV=testing jest --watchAll --verbose --runInBand"
+  ```
 
 **take time to answer questions**
-
-## Pass Environment Flag to Knex Migrations and Seeding
-
-- delete the test database.
-- run the command `npx knex migrate:latest --env=testing` and explain how it works in tandem with the configuration defined inside `knexfile.js`.
 
 **wait for students to catch up**
 
@@ -70,19 +75,33 @@ Explain that if the server is defined and started in the same file, it would thr
 - add `supertest` as a dev dependency.
 - add `./api/server.spec.js`:
 
-```js
-// ./api/server.js
-const request = require('supertest'); // install this as a dev dependency
+  ```js
+  // ./api/server.js
+  const request = require('supertest'); // install this as a dev dependency
+  const db = require('../data/dbConfig.js');
+  const server = require('./server.js');
 
-const server = require('./server.js');
+  beforeAll(async () => {
+    // migrate the db programatically
+    await db.migrate.rollback()
+    await db.migrate.latest()
+  })
+  beforeEach(async () => {
+    // each test must have same initial state
+    await db('hobbits').truncate()
+  })
+  afterAll(async () => {
+    // close the connection to the db at the end
+    await db.destroy()
+  })
 
-describe('sever.js', () => {
-  // this test helps make sure we're working on the right environment
-  it('should set testing environment', () => {
-    expect(process.env.DB_ENV).toBe('testing');
+  describe('server.js', () => {
+    // this test helps make sure we're working on the right environment
+    it('should set testing environment', () => {
+      expect(process.env.DB_ENV).toBe('testing');
+    });
   });
-});
-```
+  ```
 
 **wait for students to catch up**
 
@@ -129,7 +148,6 @@ describe('sever.js', () => {
 ```js
 it('should return JSON', async () => {
   const res = await request(server).get('/');
-
   expect(res.type).toBe('application/json');
 });
 ```
@@ -141,7 +159,6 @@ it('should return JSON', async () => {
 ```js
 it('should return { api: "up" }', async () => {
   const res = await request(server).get('/');
-
   expect(res.body).toEqual({ api: 'up' });
 });
 ```
@@ -152,46 +169,57 @@ it('should return { api: "up" }', async () => {
 
 ## Write End to End Tests that Involve the Database
 
-Open `./hobbits/hobbitsModel.js`. We'll use **TDD** to implement the data access code.
+Open `./hobbits/hobbits-model.js`. We'll use **TDD** to implement the data access code.
 
-- open `./hobbits/hobbitsModel.spec.js`.
+- open `./hobbits/hobbits-model.spec.js`.
 - add a test for the `insert` method
 
-```js
-// we'll use this to verify hobbitsModel is working
-const db = require('../data/dbConfig.js');
-const Hobbits = require('./hobbitsModel.js');
+  ```js
+  // we'll use this to verify hobbits model is working
+  const db = require('../../data/dbConfig.js');
+  const Hobbits = require('./hobbits-model.js');
 
-describe('hobbits model', () => {
-  describe('insert()', () => {
-    it('should insert the provided hobbits into the db', async () => {
-      await Hobbits.insert({ name: 'gaffer' });
-      await Hobbits.insert({ name: 'sam' });
+  beforeAll(async () => {
+    await db.migrate.rollback()
+    await db.migrate.latest()
+  });
+  beforeEach(async () => {
+    await db('hobbits').truncate()
+  });
+  afterAll(async () => {
+    await db.destroy()
+  });
 
-      const hobbits = await db('hobbits');
-      expect(hobbits).toHaveLength(2);
+  describe('hobbits model', () => {
+    describe('insert()', () => {
+      it('should insert the provided hobbits into the db', async () => {
+        await Hobbits.insert({ name: 'gaffer' });
+        await Hobbits.insert({ name: 'sam' });
+
+        const hobbits = await db('hobbits');
+        expect(hobbits).toHaveLength(2);
+      });
     });
   });
-});
-```
+  ```
 
-Implement code to make the tests pass
+- Implement code to make the tests pass
 
-```js
-// ./hobbits/hobbitsModel.js
-async function insert(hobbit) {
-  // the second parameter here is of other databases, SQLite returns the id by default
-  const [id] = await db('hobbits').insert(hobbit, 'id');
+  ```js
+  // ./hobbits/hobbits-model.js
+  async function insert(hobbit) {
+    // the second parameter here is of other databases, SQLite returns the id by default
+    const [id] = await db('hobbits').insert(hobbit, 'id');
 
-  return db('hobbits')
-    .where({ id })
-    .first();
-}
-```
+    return db('hobbits')
+      .where({ id })
+      .first();
+  }
+  ```
 
 **wait for students to catch up**
 
-What if the insert is failing and the tests pass because there are other hobbits already in the database? let's add another test.
+- What if the insert is failing and the tests pass because there are other hobbits already in the database? let's add another test.
 
 ```js
 // note we're checking one hobbit at a time
@@ -205,9 +233,7 @@ it('should insert the provided hobbit into the db', async () => {
 });
 ```
 
-The test passes, but makes the prior test fail because each test is inserting new data into the database.
-
-We can fix that by truncating the _hobbits_ table before running each test.
+- The test passes. Here is the code that ensures that each test starts with a clean table:
 
 ```js
 beforeEach(async () => {
@@ -221,7 +247,7 @@ Do another review of how everything works together.
 
 **Emphasize that all of these inserts target the test database (test.db3)**, running the server will show the data from the `hobbits.db3` database.
 
-## Deploy to Heroku with PostgreSQL
+## If time allows: Deploy to Heroku with PostgreSQL
 
 - new app
 - connect it
@@ -250,6 +276,6 @@ npx heroku run knex seed:run -a lshobbits
 
 change DB_ENV to be development and switch it back to show the effect
 
-show the returning inside hobbitsModel.js
+show the returning inside the hobbits model
 
 `const [id] = await db('hobbits').insert(hobbit, 'id'); // show the 'id'-*`
