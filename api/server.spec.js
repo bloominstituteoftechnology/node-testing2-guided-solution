@@ -1,6 +1,17 @@
 const request = require('supertest');
-
+const db = require('../data/dbConfig');
 const server = require('./server.js');
+
+beforeAll(async () => {
+  await db.migrate.rollback() // so any changes to migration files are picked up
+  await db.migrate.latest()
+})
+beforeEach(async () => {
+  await db('hobbits').truncate()
+})
+afterAll(async () => {
+  await db.destroy()
+})
 
 describe('sever.js', () => {
   it('should set testing environment', () => {

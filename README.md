@@ -13,7 +13,7 @@ Guided project for **Node Server Testing** Module.
 
 ## Introduce the Module Challenge
 
-Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/node-server-testing-challenge), and provide hints about what to test.
+Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/node-testing2-guided), and provide hints about what to test.
 
 ## Introduce the Guided Project
 
@@ -28,15 +28,16 @@ Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-gui
 
 ## Change Jest Environment to Node
 
-Explain that `Jest` runs in browser mode using `jsdom`, for server testing we need to change it to run in **node mode**.
+- Explain that Jest runs in browser mode using `jsdom`, for server testing we need to change it to run in **node mode**.
+- We can generate a Jest config file running `npx jest --init`. An assistant launches and we can set the environment to `node` from there.
 
-- open `package.json` and add:
+- Alternatively, we can set configuration inside the `package.json` by adding a "jest" key:
 
-```json
-"jest" : {
-  "testEnvironment": "node"
-}
-```
+  ```json
+  "jest" : {
+    "testEnvironment": "node"
+  }
+  ```
 
 **restart the server/test if they were running** for the changes to take effect.
 
