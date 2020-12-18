@@ -11,15 +11,13 @@ Guided project for **Node Server Testing** Module.
 - [ ] type `npm run seed` to seed the db.
 - [ ] type `npm run server` to start the API.
 
-Please follow along as the instructor adds automated tests to the API.
-
 ## Introduce the Module Challenge
 
 Take time to explain what is expected from the [module challenge](https://github.com/LambdaSchool/node-server-testing-challenge), and provide hints about what to test.
 
 ## Introduce the Guided Project
 
-Introduce the [guided project](https://github.com/LambdaSchool/node-server-testing-guided).
+Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-guided).
 
 ## Add .env File to Root Folder
 
