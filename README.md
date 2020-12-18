@@ -1,28 +1,17 @@
 # Node Server Testing Guided Project
 
-Guided project for **Web Testing IV** Module.
+Guided project for **Node Server Testing** Module.
 
 ## Project Setup
 
-- [ ] fork and clone this repository.
-- [ ] **CD into the folder** where you cloned **your fork**.
+- [ ] clone this repository.
+- [ ] move inside the project folder.
 - [ ] type `npm i` to download dependencies.
+- [ ] type `npm run migrate` to run migrations.
+- [ ] type `npm run seed` to seed the db.
 - [ ] type `npm run server` to start the API.
 
-Please follow along as the instructor add automated tests to the API.
-
-## How to Contribute
-
-- clone the [starter code](https://github.com/LambdaSchool/node-server-testing-guided).
-- create a solution branch: `git checkout -b solution`.
-- add this repository as a remote: `git remote add solution https://github.com/LambdaSchool/node-server-testing-guided-solution`
-- pull from this repository's `master` branch into the `solution` branch in your local folder `git pull solution master:solution --force`.
-
-A this point you should have a `master` branch pointing to the student's repository and a `solution` branch with the latest changes added to the solution repository.
-
-When making changes to the `solution` branch, commit the changes and type `git push solution solution:master` to push them to this repository.
-
-When making changes to the `master` branch, commit the changes and use `git push origin master` to push them to the student's repository.
+Please follow along as the instructor adds automated tests to the API.
 
 ## Introduce the Module Challenge
 
@@ -31,12 +20,6 @@ Take time to explain what is expected from the [module challenge](https://github
 ## Introduce the Guided Project
 
 Introduce the [guided project](https://github.com/LambdaSchool/node-server-testing-guided).
-
-- fork and clone it.
-- install dependencies.
-- run it to make sure there are no errors.
-
-**wait for students to catch up**
 
 ## Add .env File to Root Folder
 
