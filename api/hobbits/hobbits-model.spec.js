@@ -1,4 +1,4 @@
-const Hobbit = require('./hobbitsModel.js');
+const Hobbit = require('./hobbits-model.js');
 const db = require('../../data/dbConfig.js');
 
 beforeAll(async () => {
