@@ -1,9 +1,16 @@
 const Hobbit = require('./hobbitsModel.js')
-const db = require('../data/dbConfig.js')
+const db = require('../../data/dbConfig.js')
 
+beforeAll(async () => {
+  await db.migrate.rollback() // so any changes to migration files are picked up
+  await db.migrate.latest()
+})
 beforeEach(async () => {
-  await db('hobbits').truncate();
-});
+  await db('hobbits').truncate()
+})
+afterAll(async () => {
+  await db.destroy()
+})
 
 describe('hobbits model', () => {
   describe('insert()', () => {
