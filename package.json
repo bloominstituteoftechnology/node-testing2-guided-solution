@@ -1,15 +1,12 @@
 {
-  "name": "node-testing-guided",
+  "name": "node-testing2-guided-solution",
   "version": "1.0.0",
-  "description": "Starter Code for Node Testing Module",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch --verbose",
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "Lambda School",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
