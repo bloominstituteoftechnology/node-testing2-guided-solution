@@ -5,7 +5,7 @@ module.exports = {
   update,
   remove,
   getAll,
-  findById,
+  getById,
 };
 
 async function insert(hobbit) {
@@ -26,6 +26,6 @@ function getAll() {
   return db('hobbits');
 }
 
-function findById(id) {
+function getById(id) {
   return db('hobbits').where({ id }).first();
 }

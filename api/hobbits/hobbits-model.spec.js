@@ -66,12 +66,12 @@ describe('hobbits model', () => {
     });
   });
 
-  describe('findById()', () => {
+  describe('getById()', () => {
     it('can find a hobbit by id', async () => {
       await db('hobbits').insert({ name: 'gaffer' });
       await db('hobbits').insert({ name: 'sam' });
-      const gaffer = await Hobbit.findById(1);
-      const sam = await Hobbit.findById(2);
+      const gaffer = await Hobbit.getById(1);
+      const sam = await Hobbit.getById(2);
       expect(gaffer).toMatchObject({ id: 1, name: 'gaffer' });
       expect(sam).toMatchObject({ id: 2, name: 'sam' });
     });
