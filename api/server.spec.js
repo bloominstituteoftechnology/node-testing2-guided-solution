@@ -45,7 +45,6 @@ describe('server.js', () => {
     })
     it('should return { api: "up" }', async () => {
       const res = await request(server).get('/')
-
       expect(res.body).toEqual({ api: 'up' })
     })
     it('[GET] / another way of doing it', () => {
