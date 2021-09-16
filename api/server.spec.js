@@ -18,7 +18,7 @@ afterAll(async () => {
 
 describe('server.js', () => {
   it('should set testing environment', () => {
-    expect(process.env.DB_ENV).toBe('testing')
+    expect(process.env.NODE_ENV).toBe('testing')
   })
 
   describe('[GET] /', () => {

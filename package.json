@@ -6,7 +6,7 @@
     "server": "nodemon index.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
-    "test": "cross-env DB_ENV=testing jest --watchAll --verbose --runInBand"
+    "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
   },
   "dependencies": {
     "dotenv": "^10.0.0",

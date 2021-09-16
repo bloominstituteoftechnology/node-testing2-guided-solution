@@ -52,13 +52,13 @@ Guided project for **Node Server Testing** Module.
 ## Introduce cross-env
 
 - Explain what `cross-env` does in the `test` script inside `package.json`.
-- Open `./data/dbConfig.js` and show how we're using `DB_ENV` to dynamically load a different `knex` configuration for testing.
+- Open `./data/dbConfig.js` and show how we're using `NODE_ENV` to dynamically load a different `knex` configuration for testing.
 - Open `knexfile.js` and show we have separate configurations for testing and development.
 - We will have separate databases for development and for testing inside the `data` folder.
 - Edit the package.json to set the correct environment for the tests using `cross-env`:
 
   ```json
-  "test": "cross-env DB_ENV=testing jest --watchAll --verbose --runInBand"
+  "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
   ```
 
 **take time to answer questions**
@@ -98,7 +98,7 @@ Explain that if the server is defined and started in the same file, it would thr
   describe('server.js', () => {
     // this test helps make sure we're working on the right environment
     it('should set testing environment', () => {
-      expect(process.env.DB_ENV).toBe('testing');
+      expect(process.env.NODE_ENV).toBe('testing');
     });
   });
   ```
