@@ -39,7 +39,7 @@ Guided project for **Node Server Testing** Module.
 - Edit the package.json to add/edit the "test" script:
 
   ```json
-  "test": "jest --watchAll --verbose --runInBand"
+  "test": "jest --verbose --runInBand"
   ```
 
 - The `runInBand` flag is used to run all tests serially, as there is database access involved.
@@ -58,7 +58,7 @@ Guided project for **Node Server Testing** Module.
 - Edit the package.json to set the correct environment for the tests using `cross-env`:
 
   ```json
-  "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand"
+  "test": "cross-env NODE_ENV=testing jest --verbose --runInBand"
   ```
 
 **take time to answer questions**
