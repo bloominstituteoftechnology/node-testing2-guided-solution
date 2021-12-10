@@ -13,7 +13,7 @@ Guided project for **Node Server Testing** Module.
 
 ## Introduce the Guided Project
 
-- Introduce the [guided project](https://github.com/LambdaSchool/node-testing2-guided).
+- Introduce the [guided project](https://github.com/bloominstituteoftechnology/node-testing2-guided).
 
 ## Add .env File to Root Folder
 
