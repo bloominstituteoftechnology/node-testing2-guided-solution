@@ -22,17 +22,9 @@ Guided project for **Node Server Testing** Module.
 
 **wait for students to catch up**
 
-## Change Jest Environment to Node
+## Configure Jest
 
-- Explain that Jest by default runs in browser mode using `jsdom`, for server testing we need to change it to run in **node mode**.
 - We can generate a Jest config file running `npx jest --init`. An assistant launches and we can set the environment to `node` from there.
-- Alternatively, we can set configuration inside the `package.json` by adding a "jest" key:
-
-  ```json
-  "jest" : {
-    "testEnvironment": "node"
-  }
-  ```
 
 ## Create/Edit the "test" script with flags
 
